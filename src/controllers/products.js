@@ -14,14 +14,12 @@ module.exports = {
     },
     addProducts: (req, res) => {
         const { 
-            id_product,
             name,
             price,
             quantity,
             description            
         } = req.body
-        const data = {
-            id_product,
+        const data = {            
             name,
             price,
             quantity,
