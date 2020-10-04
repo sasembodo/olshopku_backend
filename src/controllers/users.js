@@ -34,20 +34,20 @@ module.exports = {
 
     },
     editUsers: (req, res) => {
-        const user_id = req.params.user_id
+        const id = req.params.id
         const { 
             name,
             email,
             password,
         } = req.body
         const data = {
-            user_id,
+            id,
             name,
             email,
             password,
         }
 
-        model.editUsers(data, id_product)
+        model.editUsers(data, id)
             .then(result => {
                 res.json(result)
             })
@@ -56,9 +56,9 @@ module.exports = {
             })
     },
     deleteUsers: (req, res) => {
-        const user_id = req.params.user_id
+        const id = req.params.id
 
-        model.deleteProducts(user_id)
+        model.deleteUsers(id)
             .then(result => {
                 res.json(result)
             })

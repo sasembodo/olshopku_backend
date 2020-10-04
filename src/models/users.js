@@ -3,7 +3,9 @@ const db = require('../configs/db')
 module.exports = {
     getUsers: () => {
         return new Promise ((resolve, reject) =>{
-            db.query(`SELECT * FROM users`, (err, response) =>{
+            db.query(`SELECT users.*, users_detail.* FROM users
+            LEFT JOIN users_detail
+            ON users.id = users_detail.user_id`, (err, response) =>{
                 if (!err) {
                     resolve (response)
                 }else{
@@ -24,9 +26,9 @@ module.exports = {
             })
         })
     },
-    editUsers: (data, user_id) => {
+    editUsers: (data, id) => {
         return new Promise((resolve, reject) => {
-          db.query('UPDATE users SET ? WHERE user_id = ?', [data, user_id], (err, result) => {
+          db.query('UPDATE users SET ? WHERE id = ?', [data, id], (err, result) => {
             if (!err) {
               resolve(result)
             } else {
@@ -35,9 +37,9 @@ module.exports = {
           })
         })
       },
-    deleteUsers: (user_id) => {
+    deleteUsers: (id) => {
         return new Promise((resolve, reject) => {
-          db.query('DELETE FROM users WHERE user_id = ?', user_id, (err, result) => {
+          db.query('DELETE FROM users WHERE id = ?', id, (err, result) => {
             if (!err) {
               resolve(result)
             } else {

@@ -24,9 +24,9 @@ module.exports = {
             })
         })
     },
-    editProducts: (data, id_product) => {
+    editProducts: (data, id) => {
         return new Promise((resolve, reject) => {
-          db.query('UPDATE products SET ? WHERE id_product = ?', [data, id_product], (err, result) => {
+          db.query('UPDATE products SET ? WHERE id = ?', [data, id], (err, result) => {
             if (!err) {
               resolve(result)
             } else {
@@ -35,9 +35,9 @@ module.exports = {
           })
         })
       },
-    deleteProducts: (id_product) => {
+    deleteProducts: (id) => {
         return new Promise((resolve, reject) => {
-          db.query('DELETE FROM products WHERE id_product = ?', id_product, (err, result) => {
+          db.query('DELETE FROM products WHERE id = ?', id, (err, result) => {
             if (!err) {
               resolve(result)
             } else {

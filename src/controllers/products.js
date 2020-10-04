@@ -36,7 +36,7 @@ module.exports = {
 
     },
     editProducts: (req, res) => {
-        const id_product = req.params.id_product
+        const id = req.params.id
         const { 
             name,
             price,
@@ -44,14 +44,14 @@ module.exports = {
             description
         } = req.body
         const data = {
-            id_product,
+            id,
             name,
             price,
             quantity,
             description
         }
 
-        model.editProducts(data, id_product)
+        model.editProducts(data, id)
             .then(result => {
                 res.json(result)
             })
@@ -60,9 +60,9 @@ module.exports = {
             })
     },
     deleteProducts: (req, res) => {
-        const id_product = req.params.id_product
+        const id = req.params.id
 
-        model.deleteProducts(id_product)
+        model.deleteProducts(id)
             .then(result => {
                 res.json(result)
             })
