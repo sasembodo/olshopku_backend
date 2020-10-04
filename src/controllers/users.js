@@ -16,16 +16,31 @@ module.exports = {
         const { 
             name,
             email,
-            password,            
+            password,
+            user_id,
+            address,
+            phone_number,            
         } = req.body
-        const data = {            
+        const data1 = {            
             name,
             email,
             password,
         }
+        const data2 = {
+            user_id,
+            address,
+            phone_number,
+        }
 
-        model.addUsers(data)
+        model.addUsers(data1)
             .then(result => {
+                model.addUsers(data2)
+                    .then(result => {
+                        res.json(result)
+                    })
+                    .catch(err => {
+                        console.log(err)
+                    }),
                 res.json(result)
             })
             .catch(err => {
@@ -39,16 +54,30 @@ module.exports = {
             name,
             email,
             password,
+            user_id,
+            address,
+            phone_number,            
         } = req.body
-        const data = {
-            id,
+        const data1 = {            
             name,
             email,
             password,
         }
+        const data2 = {
+            user_id,
+            address,
+            phone_number,
+        }
 
-        model.editUsers(data, id)
+        model.editUsers(data1,id)
             .then(result => {
+                model.editUsers(data2,user_id)
+                    .then(result => {
+                        res.json(result)
+                    })
+                    .catch(err => {
+                        console.log(err)
+                    }),
                 res.json(result)
             })
             .catch(err => {
@@ -60,6 +89,13 @@ module.exports = {
 
         model.deleteUsers(id)
             .then(result => {
+                model.deleteUsers(user_id)
+                    .then(result => {
+                        res.json(result)
+                    })
+                    .catch(err => {
+                        console.log(err)
+                    }),
                 res.json(result)
             })
             .catch(err => {
