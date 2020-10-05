@@ -1,9 +1,10 @@
-const model = require('../models/users')
+const model1 = require('../models/users')
+const model2 = require('../models/users_detail')
 const helpers = require('../helpers/index')
 
 module.exports = {
     getUsers: (_, res) => {
-        model
+        model1
             .getUsers()
             .then(response => {
                 helpers.success(res, response)
@@ -32,9 +33,9 @@ module.exports = {
             phone_number,
         }
 
-        model.addUsers(data1)
+        model1.addUsers(data1)
             .then(result => {
-                model.addUsers(data2)
+                model2.addUsers(data2)
                     .then(result => {
                         res.json(result)
                     })
@@ -69,9 +70,9 @@ module.exports = {
             phone_number,
         }
 
-        model.editUsers(data1,id)
+        model1.editUsers(data1,id)
             .then(result => {
-                model.editUsers(data2,user_id)
+                model2.editUsers(data2,user_id)
                     .then(result => {
                         res.json(result)
                     })
@@ -87,9 +88,9 @@ module.exports = {
     deleteUsers: (req, res) => {
         const id = req.params.id
 
-        model.deleteUsers(id)
+        model1.deleteUsers(id)
             .then(result => {
-                model.deleteUsers(user_id)
+                model2.deleteUsers(user_id)
                     .then(result => {
                         res.json(result)
                     })
