@@ -18,7 +18,6 @@ module.exports = {
             name,
             email,
             password,
-            user_id,
             address,
             phone_number,            
         } = req.body
@@ -28,21 +27,20 @@ module.exports = {
             password,
         }
         const data2 = {
-            user_id,
             address,
             phone_number,
         }
 
         model1.addUsers(data1)
-            .then(result => {
+            .then(result1 => {
+                data2.user_id = result1.insertId;
                 model2.addUsers(data2)
-                    .then(result => {
-                        res.json(result)
+                    .then(result2 => {
+                        res.json(result2)
                     })
                     .catch(err => {
                         console.log(err)
-                    }),
-                res.json(result)
+                    })                
             })
             .catch(err => {
                 console.log(err)
