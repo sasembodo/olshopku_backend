@@ -67,11 +67,8 @@ module.exports = {
         }
 
         model1.editUsers(data1,id)
-            .then(result1 => {
-                result1 = id;
-                data2.user_id = result1;
-                console.log(id)                
-                model2.editUsers(data2)
+            .then(result1 => {                               
+                model2.editUsers(data2,id)
                     .then(result2 => {                        
                         res.json(result2)
                     })
@@ -81,21 +78,7 @@ module.exports = {
             })
             .catch(err => {
                 console.log(err)
-            })
-        // model1.editUsers(data1,id)
-        //     .then(result => {
-        //         model2.editUsers(data2,user_id)
-        //             .then(result => {
-        //                 res.json(result)
-        //             })
-        //             .catch(err => {
-        //                 console.log(err)
-        //             }),
-        //         res.json(result)
-        //     })
-        //     .catch(err => {
-        //         console.log(err)
-        //     })
+            })        
     },
     deleteUsers: (req, res) => {
         const id = req.params.id

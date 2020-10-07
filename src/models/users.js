@@ -3,10 +3,11 @@ const db = require('../configs/db')
 module.exports = {
     getUsers: () => {
         return new Promise ((resolve, reject) =>{
-            db.query(`SELECT users.name, users.email, users.password, 
+            db.query(`SELECT users.id, users.name, users.email, users.password, 
             users_detail.address, users_detail.phone_number 
             FROM users LEFT JOIN users_detail
-            ON users.id = users_detail.user_id`, (err, response) =>{
+            ON users.id = users_detail.user_id
+            ORDER BY users.id`, (err, response) =>{
                 if (!err) {
                     resolve (response)
                 }else{

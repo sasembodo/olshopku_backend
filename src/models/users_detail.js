@@ -16,7 +16,7 @@ module.exports = {
     },
     editUsers: (data2, id) => {
         return new Promise((resolve, reject) => {
-          db.query('UPDATE users_detail SET ? WHERE id = ?', [data2, id], (err, result) => {
+          db.query('UPDATE users_detail SET ? WHERE user_id = ?', [data2, id], (err, result) => {
             if (!err) {
               resolve(result)
             } else {
