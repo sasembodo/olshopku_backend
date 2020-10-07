@@ -53,7 +53,6 @@ module.exports = {
             name,
             email,
             password,
-            user_id,
             address,
             phone_number,            
         } = req.body
@@ -62,26 +61,41 @@ module.exports = {
             email,
             password,
         }
-        const data2 = {
-            user_id,
+        const data2 = {           
             address,
             phone_number,
         }
 
         model1.editUsers(data1,id)
-            .then(result => {
-                model2.editUsers(data2,user_id)
-                    .then(result => {
-                        res.json(result)
+            .then(result1 => {
+                result1 = id;
+                data2.user_id = result1;
+                console.log(id)                
+                model2.editUsers(data2)
+                    .then(result2 => {                        
+                        res.json(result2)
                     })
                     .catch(err => {
                         console.log(err)
-                    }),
-                res.json(result)
+                    })                
             })
             .catch(err => {
                 console.log(err)
             })
+        // model1.editUsers(data1,id)
+        //     .then(result => {
+        //         model2.editUsers(data2,user_id)
+        //             .then(result => {
+        //                 res.json(result)
+        //             })
+        //             .catch(err => {
+        //                 console.log(err)
+        //             }),
+        //         res.json(result)
+        //     })
+        //     .catch(err => {
+        //         console.log(err)
+        //     })
     },
     deleteUsers: (req, res) => {
         const id = req.params.id
