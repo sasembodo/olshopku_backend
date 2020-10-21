@@ -5,9 +5,10 @@ const Router = express.Router()
 const auth = require('../helpers/auth')
 
 Router
-    .get('/', controller.getUsers)
+    .get('/', auth.checkToken, controller.getUsers)
     .post('/', controller.addUsers)
-    .patch('/:id', controller.editUsers)
-    .delete('/:id', controller.deleteUsers)
+    .patch('/:id', auth.checkToken, controller.editUsers)
+    .delete('/:id', auth.checkToken, controller.deleteUsers)
+    .post('/login', controller.loginUser)
 
 module.exports = Router

@@ -52,4 +52,26 @@ module.exports = {
           })
         })
       },
+    emailCheck: (email) => {
+      return new Promise((resolve, reject) => {
+          db.query('SELECT email FROM user WHERE email = ? ', email, (err, result) => {
+              if (!err) {
+                  resolve(result)
+              } else {
+                  reject(err)
+              }
+          })
+      })
+    },
+    loginUser: (email) => {
+        return new Promise((resolve, reject) => {
+          db.query('SELECT * FROM user WHERE email = ? ', email, (err, result) => {
+            if (!err) {
+                resolve(result)
+            } else {
+                reject(err)
+            }
+          })
+        })
+      },
 }
