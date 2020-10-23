@@ -59,13 +59,21 @@ module.exports = {
                             bcryptjs.hash(password, salt, (err, hash) => {
                             const data1 = { id, email, password: hash, name }
 
-                            model.addUser(data1)
-                                .then(resultQuery => {
-                                res.json({
-                                    status: 200,
-                                    message: 'Success registering new user',
-                                    data1
+                            model1.addUsers(data1)
+                                .then(result1 => {
+                                data2.user_id = result1.insertId
+                                model2.addUsers(data2)
+                                    .then(result2 => {
+                                        res.json(result2)
                                     })
+                                    .catch(err => {
+                                        console.log(err)
+                                    })                
+                                // res.json({
+                                //     status: 200,
+                                //     message: 'Success registering new user',
+                                //     data1
+                                //     })
                                 })
                                 .catch(err => {
                                 console.log(err)
@@ -91,7 +99,7 @@ module.exports = {
                     status: 400,
                     message: 'Email already exist'
                     })
-                }
+                }                
             })
             .catch(err => {
                 res.status(400).json({
