@@ -1,12 +1,12 @@
-const model1 = require('../models/users')
-const model2 = require('../models/users_detail')
+const modelUsers = require('../models/users')
+const modelUsersDetail = require('../models/users_detail')
 const bcryptjs = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const helpers = require('../helpers/index')
 
 module.exports = {
     getUsers: (_, res) => {
-        model1
+        modelUsers
             .getUsers()
             .then(response => {
                 helpers.success(res, response)
@@ -35,10 +35,10 @@ module.exports = {
             phone_number,
         }
         
-        // model1.addUsers(data1)
+        // modelUsers.addUsers(data1)
         //     .then(result1 => {
         //         data2.user_id = result1.insertId;
-        //         model2.addUsers(data2)
+        //         modelUsersDetail.addUsers(data2)
         //             .then(result2 => {
         //                 res.json(result2)
         //             })
@@ -50,7 +50,7 @@ module.exports = {
         //         console.log(err)
         //     })
        
-        model.emailCheck(email)
+        modelUsers.emailCheck(email)
             .then(resultQuery => {
                 if (resultQuery.length === 0) {
                     if (validateEmail(email) == true) {
@@ -59,12 +59,16 @@ module.exports = {
                             bcryptjs.hash(password, salt, (err, hash) => {
                             const data1 = { id, email, password: hash, name }
 
-                            model1.addUsers(data1)
+                            modelUsers.addUsers(data1)
                                 .then(result1 => {
                                 data2.user_id = result1.insertId
-                                model2.addUsers(data2)
+                                modelUsersDetail.addUsers(data2)
                                     .then(result2 => {
-                                        res.json(result2)
+                                        res.json({
+                                            result2,
+                                            status: 200,
+                                            message: 'Success registering new user',                                            
+                                        })
                                     })
                                     .catch(err => {
                                         console.log(err)
@@ -128,9 +132,9 @@ module.exports = {
             phone_number,
         }
         
-        // model1.editUsers(data1,id)
+        // modelUsers.editUsers(data1,id)
         //     .then(result1 => {                               
-        //         model2.editUsers(data2,id)
+        //         modelUsersDetail.editUsers(data2,id)
         //             .then(result2 => {                        
         //                 res.json(result2)
         //             })
@@ -179,9 +183,9 @@ module.exports = {
     deleteUsers: (req, res) => {
         const id = req.params.id
 
-        model1.deleteUsers(id)
+        modelUsers.deleteUsers(id)
             .then(result => {
-                model2.deleteUsers(user_id)
+                modelUsersDetail.deleteUsers(user_id)
                     .then(result => {
                         res.json(result)
                     })
